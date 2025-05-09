@@ -12,14 +12,12 @@ function getBody(req: VercelRequest): any {
   return req.body || {};
 }
 
-// Helper to generate a random natural number between min and max (inclusive)
 function randomNatural(min: number, max: number): number {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// MCP tool: random_number
 async function handleRandomNumber(req: VercelRequest, res: VercelResponse) {
   const body = getBody(req);
   const { min, max } = body.input || {};
@@ -35,7 +33,6 @@ async function handleRandomNumber(req: VercelRequest, res: VercelResponse) {
   return res.status(200).json({ output: { value } });
 }
 
-// MCP entrypoint
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
