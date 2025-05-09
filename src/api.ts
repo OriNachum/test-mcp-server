@@ -1,5 +1,17 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 
+// Helper to parse JSON body for Vercel (since body may be a string)
+function getBody(req: VercelRequest): any {
+  if (typeof req.body === 'string') {
+    try {
+      return JSON.parse(req.body);
+    } catch {
+      return {};
+    }
+  }
+  return req.body || {};
+}
+
 // Helper to generate a random natural number between min and max (inclusive)
 function randomNatural(min: number, max: number): number {
   min = Math.ceil(min);
@@ -9,7 +21,8 @@ function randomNatural(min: number, max: number): number {
 
 // MCP tool: random_number
 async function handleRandomNumber(req: VercelRequest, res: VercelResponse) {
-  const { min, max } = req.body?.input || {};
+  const body = getBody(req);
+  const { min, max } = body.input || {};
   if (
     typeof min !== 'number' ||
     typeof max !== 'number' ||
@@ -27,8 +40,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
-  // Basic MCP tool dispatch
-  const { tool } = req.body || {};
+  const body = getBody(req);
+  const { tool } = body;
   if (tool === 'random_number') {
     return handleRandomNumber(req, res);
   }
