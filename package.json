@@ -9,6 +9,7 @@
     "start": "vercel start"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "github:modelcontextprotocol/typescript-sdk",
     "@vercel/node": "latest"
   },
   "devDependencies": {
