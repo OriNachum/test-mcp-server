@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.11.1",
-    "@vercel/node": "latest"
+    "@vercel/node": "latest",
+    "express": "^5.1.0"
   },
   "devDependencies": {
+    "@types/express": "^5.0.1",
     "@types/node": "latest",
     "typescript": "latest"
   }
